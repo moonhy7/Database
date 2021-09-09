@@ -1,0 +1,66 @@
+오라클 DBMS 설치
+
+1. https://www.oracle.com/kr/downloads/
+
+   > [데이터베이스] 선택
+   > [Database 18c Express Edition] 선택
+   > [Oracle Database 18c Express Edition for Windows x64] 다운로드
+
+
+2. \OracleXE184_Win64 경로
+   
+   > setup.exe 관리자 권한으로 실행하기
+   > SYS, SYSTEM 및 PDBADMIN 계정에 사용될 비밀번호 설정
+     pw(아이티): dkdlxl
+   > 방화벽 : 엑세스 허용(A) 클릭
+   > 설치완료
+       - 플러그인할 수  있는 데이터베이스: localhost:1521/XEPDB1
+       - EM Express URL: https://localhost:5500/em
+   > 환경변수 등록
+       - 변수 이름 :  NLS_LANG
+       - 변수 값   :  KOREAN_KOREA.AL32UTF8  
+   > SQL Plus 실행
+       - sys as sysdba
+       - dkdlxl
+
+3. SQL Developer 설치
+
+   > https://www.oracle.com
+   > 검색입력 : 'SQL Developer Downloads'
+   > [Windows 32-bit/64-bit] 다운로드
+
+
+
+MySQL DBMS 설치
+
+1. https://www.oracle.com/kr/downloads/
+
+   > [데이터베이스] 선택
+   > [MySQL]] 선택
+   > [MySQL Community (GPL) Downloads »] 선택
+   > [MySQL Installer for Windows] 선택
+   > [Windows (x86, 32-bit), MSI Installer 450.7M] 다운로드
+
+2. 설치
+   > Choosing a Setup Type : [Developer Default]
+   > Check Requirements : [Execute]
+   > Type and Networking : [Development Computer]
+   > MySQL User Accounts : [Add User] admin/dkdlxl -> DBA추가
+   > Windows Service : 서비스 등록(부팅 시 자동실행) or 수동실행  
+
+3. 환경변수 설정(Path 추가)
+   > C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+2021.09.07 화요일 강의 시작
+
+4. 샘플 데이터베이스 IMPORT
+   > cmd 관리자권한 실행
+   > cd c:\employees
+   > mysql -u root -p
+     show databases;
+     mysql> source employees.sql;
+     show databases;
+
+5. 서비스 검색 : 서버 구동 여부 확인
+  
+   * 참고: https://www.w3schools.com/
