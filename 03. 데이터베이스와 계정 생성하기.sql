@@ -14,6 +14,8 @@
   > 데이터베이스 생성하기
     : create database testdb;
     : create schema   testdb;
+
+
     
     데이터베이스 한글 설정
     : create database[schema] testdb default character set utf8;
@@ -31,6 +33,9 @@
     Enter password: ******
 
     mysql> show databases;
+
+
+    
     mysql> use sakila
     mysql> show tables;
     mysql> select * from actor;
