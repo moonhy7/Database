@@ -2,6 +2,9 @@
 DML(Data Manipulation Language)
 : 검색/등록/삭제/갱신을 위한 데이터베이스 언어
 
+비대면 접속정보
+mysql -u bitcamp -h 221.148.138.87 -p
+
 
 [Member Table] 실습------------------------------------------
 
@@ -21,7 +24,7 @@ DML(Data Manipulation Language)
 
           UPDATE member
           SET  `PWD` = '1111'
-          WHERE `ID` = 'lim02';
+          WHERE `ID` = 'lim02';     ★★★
 
 
 
@@ -31,13 +34,13 @@ DML(Data Manipulation Language)
           SET  `PWD`    = '5678',
                `NAME`   = '임꺽정',
                `GENDER` = '남'
-          WHERE `ID` = 'lim02';
+          WHERE `ID` = 'lim02';     ★★★ 
 
 
 
 [DELETE] 삭제
     
-    1. 레코드 추가
+    1. 삭제 할 레코드 추가
 
          INSERT INTO lecture.member(
             `ID`, 
@@ -51,8 +54,8 @@ DML(Data Manipulation Language)
     2. 삭제하기
 
          DELETE FROM lecture.member
-         WHERE `ID` = 'java222';
+         WHERE `ID` = 'java222';     ★★★
 
-
+    
 
 ----------------------------------------------------------------
