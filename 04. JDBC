@@ -1,0 +1,10 @@
+SELECT * FROM lecture.member;
+
+update member set `PWD` = 'OO' where `ID` = '-';
+
+
+update member set `PWD` = 'ㅋㅋㅋㅋㅋ';
+
+commit;
+
+SELECT * FROM ACCOUNT;
