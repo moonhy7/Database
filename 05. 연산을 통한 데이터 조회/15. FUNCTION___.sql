@@ -29,19 +29,24 @@ ________________________________________________
 
     > 모든 아이돌멤버의 이름과 출생 월만 조회하시오
         ---------------------------------------------------
-    
+        select group_name, member_name, birthday, substr(birthday,5,2) "MON" from idol_member;
 
         ---------------------------------------------------
 
     > 아이돌그룹 중 'JYP'로 시작하는 모든 그룹정보를 출력하시오
         ----------------------------------------------------
     
-
+        select * from idol_group where substr(company,1,3) = "JYP";
+        select * from idol_group where company like 'JYP%';
+        select * from idol_group where company regexp 'jyp';
+        select * from idol_group where company regexp '^jyp';
+        select * from idol_group where company regexp('^jyp');
         ----------------------------------------------------
 
     > 모든 아이돌멤버의 나이를 출력하시오
         ----------------------------------------------------
-    
+        
+        select group_name, member_name, birthday, substr(now(),1,4) - substr(birthday,1,4) + 1 as "age" from idol_member;
 
         ----------------------------------------------------    
 
@@ -51,13 +56,12 @@ ________________________________________________
         SELECT CONCAT('My', 'S', 'QL', ' JAVA211');
         SELECT CONCAT('A', "B", "CDE", 'F');
         SELECT CONCAT('A', "B", NULL, 'F');
-        SELECT CONCAT_WS('-','2021','01','20');
+        SELECT CONCAT_WS('-','2021','01','20'); 
         ----------------------------------------------------
 
     > 모든 아이돌그룹에 대하여 'BTS♥boys'의 형식과 같이 출력하시오
         ----------------------------------------------------
-    
-
+        select concat(group_name, '♥', gender, 's') MESSAGE from idol_group;
         ----------------------------------------------------
 
    ■ TRIM() 문자열 공백제거 함수
@@ -81,14 +85,14 @@ ________________________________________________
       출력하시오
        ----------------------------------------------------
     
-
+    SELECT replace(company, '엔터테인먼트', 'ENTERTAINMENT') 'COMPANY', GROUP_NAME from idol_group;
        ----------------------------------------------------
 
    ■ 문자열 패딩 함수() LPAD()/RPAD()
        ----------------------------------------------------
-        SELECT lpad('12345', 10, '0') AS RESULT;
+        SELECT lpad('12345', 10, '0') AS RESULT; -- 총 10자리
         SELECT rpad('12345', 10, '0') AS RESULT;
-        SELECT LPAD('AB',4,'CD') AS RESULT;
+        SELECT LPAD('AB',4,'CD') AS RESULT; -- 총 4자리
         SELECT RPAD('AB',4,'CD') AS RESULT;
        ----------------------------------------------------   
 
@@ -109,7 +113,7 @@ ________________________________________________
          SELECT ROUND(3.141592); SELECT ROUND(3141.592);
          SELECT ROUND(3.141592, 2); 
          SELECT ROUND(3.141592, 4);   
-         SELECT MOD(17, 5);
+         SELECT MOD(17, 5); -- 나머지
          SELECT POWER(2, 2);
          SELECT POWER(2, 8);
          SELECT SQRT(25);
@@ -166,8 +170,8 @@ ________________________________________________
     > 아이돌멤버 중에서 생일이 지나지 않은 멤버를 모두 출력하시오
         ----------------------------------------------------
 
-
-
+        SELECT member_name, birthday from idol_member where substr(birthday,5,4) > date_format(now(),'%m%d');
+        --(이 코드는 결과 안나옴!) select group_name, member_name, birthday from idol_member where month(now()) <= month(birthday) or day(now()) <= day(birthday);        
         ----------------------------------------------------
 
 
@@ -199,16 +203,16 @@ ________________________________________________
          SIGNED
          UNSIGNED
 
-         SELECT BINARY 'A'='B';
-         SELECT BINARY 'A'='A'; 
+         SELECT BINARY 'A'='B'; -- 다르면 0 (false)
+         SELECT BINARY 'A'='A'; -- 같으면 1 (true)
 
-         SELECT CONVERT('A', BINARY);
-         SELECT CONV(3, 10, 2);
-         SELECT CONV(11, 10, 16);
+         SELECT CONVERT('A', BINARY); -- 0x41
+         SELECT CONV(3, 10, 2); -- 10진수 3은 2진수로 11
+         SELECT CONV(11, 10, 16); -- 10진수 11은 16진수로 B
          
 
-         SELECT FORMAT(123456789, 0);
-         SELECT FORMAT(123456789, 2);
+         SELECT FORMAT(123456789, 0); -- 123,456,789
+         SELECT FORMAT(123456789, 2); -- 소수점 둘째자리 까지 123,456,789.00
 
         ----------------------------------------------------   
 
@@ -217,7 +221,7 @@ ________________________________________________
    : 컬럼 값이 NULL 인지 아닌지 확인 필요
 
         ----------------------------------------------------
-         SELECT NULL + 3;
+         SELECT NULL + 3; -- NULL
         ----------------------------------------------------
 
     > 멤버테이블에서 전화번호(PHONE)가 NULL 인 레코드를 추출하시오 
@@ -228,9 +232,7 @@ ________________________________________________
     
     > 멤버테이블에서 전화번호(PHONE)가 NULL 이면 '9999-99-99'로 출력하시오 
         ----------------------------------------------------
-
-
-
+        SELECT ID, PWD, NAME, GENDER, BIRTHDAY, ifnull(PHONE, '9999-99-99') 'PHONE', EMAIL FROM MEMBER;
 
         ----------------------------------------------------
 

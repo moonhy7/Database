@@ -20,5 +20,3 @@ select count(*) from idol_member where group_name = '트와이스';
 -- 각 그룹별 총 멤버 수를 출력하시오
 SELECT GROUP_NAME, COUNT(GROUP_NAME) FROM IDOL_MEMBER GROUP BY GROUP_NAME;
 
-
-
