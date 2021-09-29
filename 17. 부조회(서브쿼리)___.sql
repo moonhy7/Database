@@ -21,7 +21,7 @@ _______________
         NOTICE 테이블에서 최신 등록순으로 정렬한 결과에서 
         상위 10개의 게시글을 원하는 경우라면?
 
-        
+
         SELECT WRITER_ID, TITLE, REGDATE,
             DENSE_RANK() OVER(ORDER BY REGDATE DESC) `NO`
         FROM NOTICE
@@ -50,18 +50,26 @@ _______________
 
 
 
+
+
     > IDOL_MEMBER 테이블에서 나이가 27세 이상인 멤버를 조회하시오
         ----------------------------------------------------
+         -- 틀린 답 : 에러 발생하는 경우
          SELECT GROUP_NAME, MEMBER_NAME, YEAR(NOW())-YEAR(BIRTHDAY)+1 AGE
          FROM IDOL_MEMBER
          WHERE AGE >= 27;
          -- ERROR 1054 (42S22): Unknown column 'AGE' in 'where clause'   
 
+        -- 맞는 답 - 방법 1
+        SELECT A.GROUP_NAME, A.MEMBER_NAME, A.AGE
+        FROM (SELECT GROUP_NAME, MEMBER_NAME, YEAR(NOW())-YEAR(BIRTHDAY)+1 AGE
+                    FROM IDOL_member) A
+        where A.AGE >= 27 order by A.AGE;
 
-
-
-
-
+        -- 맞는 답 - 방법 2
+        SELECT GROUP_NAME, MEMBER_NAME, YEAR(NOW())-YEAR(BIRTHDAY)+1 AGE
+        FROM IDOL_MEMBER
+        Having AGE >= 27;
 
         ----------------------------------------------------
 
