@@ -6,7 +6,7 @@ JOIN(조인)
 하나의 결과 테이블을 만드는 것
 INNER JOIN
 LEFT/RIGHT/FULL OUTER JOIN
-UNION
+UNION 
 
 https://sql-joins.leopard.in.ua
 
