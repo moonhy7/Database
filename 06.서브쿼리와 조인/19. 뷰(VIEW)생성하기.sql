@@ -14,6 +14,27 @@ ____________________________________________________________
 
 [VIEW TABLE 생성]
 --------------------------------------------------------------------
+-- 앞서 했던 조인 마지막 예제 뷰 만들기 
+CREATE VIEW veiw_employee_info
+AS
+(
+    SELECT E.EMP_NO, E.FIRST_NAME, E.GENDER,
+       S.TO_DATE, S.SALARY, DE.DEPT_NO, DP.DEPT_NAME
+    FROM EMPLOYEES E LEFT OUTER JOIN SALARIES S 
+                 LEFT OUTER JOIN DEPT_EMP DE ON S.EMP_NO = DE.EMP_NO
+                 LEFT OUTER JOIN DEPARTMENTS DP ON DE.DEPT_NO = DP.DEPT_NO
+     ON E.EMP_NO = S.EMP_NO
+LIMIT 100
+);
+
+
+-- 뷰 보기 코드 
+SELECT * FROM employees.veiw_employee_info;
+
+
+
+
+
 CREATE VIEW view_idol_member_age
 AS
 (
@@ -45,3 +66,5 @@ SELECT * FROM view_idol_member_age;
 SELECT * FROM view_notice_regcount;
 SELECT * FROM view_member_secure;
 --------------------------------------------------------------------
+
+-- 뷰를 통해 권한을 주어 보여주고 싶은 사람한테만 보여줄 수 있음

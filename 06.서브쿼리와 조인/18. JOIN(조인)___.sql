@@ -78,7 +78,9 @@ ___________________________________________________
 
     SELECT ID, NAME, GENDER 
     FROM MEMBER JOIN NOTICE ON ID = WRITER_ID;
-    -- !  Column 'ID' in field list is ambiguous ERROR
+    -- !  에러발생 -> 별칭 사용해야함
+    -- Column 'ID' in field list is ambiguous ERROR
+       -- join 의 디폴트 값은 inner join 이다!
 
 
     SELECT M.ID, M.NAME, M.GENDER,
@@ -145,6 +147,9 @@ ___________________________________________________
 
   
   -- 4. FULL OUTER JOIN
+  -- mysql은 full outer join을 지원하지않으므로
+  -- union 이용할 것
+
     SELECT M.ID, M.NAME, M.GENDER,
            N.TITLE, N.WRITER_ID, N.HIT 
     FROM 
@@ -164,5 +169,69 @@ ___________________________________________________
 
 
 
-  
+> 아래와 같이 테이블이 조회되도록 쿼리를 완성하시오
+  (단, employees DB사용)
+__________________________________________________________________  
+EMP_NO FIRST_NAME  GENDER    TO_DATE      SALARY DEPT_NO DEPT_NAME
+------------------------------------------------------------------
+10017	Cristinel	F	9999-01-01	99651	d001	Marketing
+10018	Kazuhide	F	1988-04-02	55881	d004	Production
+10018	Kazuhide	F	1988-04-02	55881	d005	Development
 
+-- employees 테이블과 Salaries 테이블 조인
+SELECT E.emp_no, E.first_name, E.GENDER,
+           S.to_date, S.salary
+    FROM 
+           employees AS E LEFT OUTER JOIN Salaries AS S 
+           ON E.emp_no = S.emp_no
+limit 10;
+
+
+-- dept_emp 테이블과 departments 테이블 조인
+SELECT DE.emp_no, DE.dept_no, 
+              DP.dept_name
+    FROM 
+           dept_emp AS DE LEFT OUTER JOIN departments AS DP 
+           ON DE.dept_no = DP.dept_no
+limit 10;
+
+
+-- 두 조인 테이블을 또다시 조인
+select x.emp_no, x.first_name, x.GENDER, 
+              x.to_date, x.salary, y.dept_no, y.dept_name
+FROM
+       (SELECT E.emp_no, E.first_name, E.GENDER,
+              S.to_date, S.salary
+              FROM 
+              employees AS E LEFT OUTER JOIN Salaries AS S 
+              ON E.emp_no = S.emp_no limit 50) X 
+LEFT OUTER JOIN 
+       (SELECT DE.emp_no, DE.dept_no, 
+                     DP.dept_name
+       FROM 
+              dept_emp AS DE LEFT OUTER JOIN departments AS DP 
+              ON DE.dept_no = DP.dept_no limit 50) Y
+ON X.emp_no = Y.emp_no limit 50;
+
+
+  
+-- 두 조인 테이블을 또다시 조인 
+
+
+-- 방법1
+SELECT E.emp_no, E.first_name, E.GENDER,
+           S.to_date, S.salary, DE.DEPT_NO, DP.dept_name
+FROM employees E LEFT OUTER JOIN Salaries S on E.emp_no = S.emp_no
+                 LEFT OUTER JOIN dept_emp DE ON S.emp_no = de.emp_no
+                 LEFT OUTER JOIN departments DP ON DE.DEPT_NO = DP.DEPT_NO
+limit 50;
+
+
+-- 방법2
+SELECT E.EMP_NO, E.FIRST_NAME, E.GENDER,
+       S.TO_DATE, S.SALARY, DE.DEPT_NO, DP.DEPT_NAME
+FROM EMPLOYEES E LEFT OUTER JOIN SALARIES S 
+                 LEFT OUTER JOIN DEPT_EMP DE ON S.EMP_NO = DE.EMP_NO
+                 LEFT OUTER JOIN DEPARTMENTS DP ON DE.DEPT_NO = DP.DEPT_NO
+     ON E.EMP_NO = S.EMP_NO
+LIMIT 100;  
