@@ -34,7 +34,6 @@ SELECT * FROM employees.veiw_employee_info;
 
 
 
-
 CREATE VIEW view_idol_member_age
 AS
 (
