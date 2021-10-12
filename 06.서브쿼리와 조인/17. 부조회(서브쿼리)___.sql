@@ -358,6 +358,7 @@ _______________
     -- > CITY 테이블에서 인구가 가장 많은 도시의 정보를 조회하시오
         ----------------------------------------------------
         SELECT MAX(POPULATION) FROM CITY;
+        SELECT MIN(POPULATION) FROM CITY;
 
 
         SELECT *
